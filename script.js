@@ -1,71 +1,71 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
-// Collect employee data
+// Function to collect employee data
 const collectEmployees = function () {
-  const employees = []; // Step 1: Initialize an empty array
 
-  while (true) { // Step 2: Start the while loop
-    const firstName = prompt("Enter the employee's first name:"); // Step 3: Get first name
-    const lastName = prompt("Enter the employee's last name:"); // Step 3: Get last name
-    let salary = prompt("Enter the employee's salary:"); // Step 3: Get salary
+  //Set up User Prompts to collect Employee Data
+  const employees = [];    // Initialize an empty array to hold employees names and salary data
 
-    // Validate salary input
-    salary = isNaN(salary) ? 0 : Number(salary); // Step 4: Validate and convert salary
+  while (true) {
+    const firstName = prompt("Please enter the employee's first name: ");   //Collect Employee First Name
+    const lastName = prompt("Please enter the employee's last name: ");     //Collect Employee Last Name
+    let salary = prompt("Please enter the employee's salary: ")             //Collect Employee Salary ($)
 
-    // Create an employee object and add it to the array
+    //Check that variable for Salary is a number
+    salary = isNaN(salary) ? 0 : Number(salary);                            //If salary entered is NaN, convert it to zero for that employee entry
+
+    //Create employee object to push to collectEmployees array
     employees.push({
       firstName: firstName,
       lastName: lastName,
       salary: salary
     });
 
-    // Ask user if they want to continue
-    const addMore = confirm("Do you want to add another employee?"); // Step 6
-    if (!addMore) break; // Exit loop if user chooses to cancel
+    //Check if user would like to enter more employees or break out of the loop
+    const continueAdding = confirm("Would you like to enter another employee?");
+    if (!continueAdding) break; //Exit while loop if continueAdding comes back false
   }
 
-  return employees; // Step 7: Return the array of employee objects
+  return employees;             //Return filled out array of employee objects
+  
 };
 
-// Display the average salary
+// Function to display the average salary
 const displayAverageSalary = function (employeesArray) {
-  // Step 1: Check if the array is empty
   if (employeesArray.length === 0) {
-    console.log("No employees to calculate the average salary.");
+    console.log('No employees entered by user to calculate the average salary');
     return;
   }
 
-  let totalSalary = 0; // Step 2: Initialize total salary
+  let totalSalary = 0;                    //Initialize variable to contain sum of all employee salaries
+  let numEmployees = 0;                   //Initialize variable to contain number of employees
 
-  // Step 2: Sum the salaries
-  for (const employee of employeesArray) {
-    totalSalary += employee.salary; // Accumulate the salary
+  numEmployees = employeesArray.length    //Set number of employees equal to length of employees array
+
+  //Calculate the sum of all salaries
+  for (const employees of employeesArray) {
+    totalSalary += employees.salary;      //Add each iteration of employee.salary to totalSalary variable
   }
 
-  // Step 3: Calculate the average salary
-  const averageSalary = totalSalary / employeesArray.length;
+  //Calculate average salary
+  const salaryAverage = totalSalary / numEmployees;
 
-  // Step 4: Log the average salary with two decimal places
-  console.log(`The average employee salary between our ${employeesArray.length} employee(s) is $${averageSalary.toFixed(2)}`);
+  //Display average salary to console
+  console.log(`The average employee salary of our ${numEmployees} is $${salaryAverage.toFixed(2)}`);
 };
 
-// Select a random employee
+// Function to select a random employee
 const getRandomEmployee = function (employeesArray) {
-  // Step 1: Check if the array is empty
   if (employeesArray.length === 0) {
-    console.log("No employees to select from.");
+    console.log("No employees have been entered to select from.");
     return;
   }
-
-  // Step 2: Generate a random index
-  const randomIndex = Math.floor(Math.random() * employeesArray.length);
-
-  // Step 3: Access the random employee
-  const selectedEmployee = employeesArray[randomIndex];
-
-  // Step 4: Log the employee's full name
-  console.log(`Congratulations to ${selectedEmployee.firstName} ${selectedEmployee.lastName}, our random drawing winner!`);
+  
+  //Generate randomizing index
+  const randomIndex = Math.floor(Math.random() * employeesArray.length);    //Generating random index from employee array
+  const randomEmployee = employeesArray[randomIndex];                       //Assign employee designated to random index to variable
+  console.log(`Congratulations to the lucky winner, ${randomEmployee.firstName} ${randomEmployee.lastName}, for winning the drawing!`);
 };
 
 /*
